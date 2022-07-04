@@ -1,11 +1,11 @@
 # Sample package on JS
-## Dependencies
+## Install
 Use command to install dependencies:
 
 ``
 npm install
 ``
 
-## Licenses
+## License
 To fast choosing appropriate license you can use service:
 https://choosealicense.com/licenses/
