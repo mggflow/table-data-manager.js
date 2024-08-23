@@ -1,3 +1,6 @@
+/**
+ * Viewing module.
+ */
 export default class Viewer {
     defDelimiter
     defEmptyPlug
@@ -11,6 +14,11 @@ export default class Viewer {
         this._getDefValue = this._getDefValue.bind(this)
     }
 
+    /**
+     * Create view of grouped items.
+     * @param grouped
+     * @returns {*[]}
+     */
     view(grouped) {
         const itemsView = []
         for (const groupKey in grouped) {
@@ -25,6 +33,11 @@ export default class Viewer {
         return itemsView
     }
 
+    /**
+     * Set field for viewing.
+     * @param fieldKey
+     * @param transformer
+     */
     setField(fieldKey, transformer = null) {
         if (transformer === null) {
             this.fields[fieldKey] = (items) => [...new Set(items.map((obj) => this._getDefValue(obj, fieldKey)))]

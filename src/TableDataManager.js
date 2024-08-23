@@ -1,3 +1,6 @@
+/**
+ * Parent data manager module.
+ */
 export default class TableDataManager {
     items
 
@@ -14,6 +17,12 @@ export default class TableDataManager {
         this.sorter = sorter
     }
 
+    /**
+     * Init for dataset and its fields.
+     * @param items
+     * @param viewingFields
+     * @param groupingFields
+     */
     init(items = [], viewingFields = {}, groupingFields = {}) {
         this.items = items
 
@@ -23,6 +32,10 @@ export default class TableDataManager {
         this._applyFieldKeys(viewingFields, groupingFields)
     }
 
+    /**
+     * Get all found fields keys.
+     * @returns {*}
+     */
     getFieldKeys() {
         return this.fieldKeys
     }

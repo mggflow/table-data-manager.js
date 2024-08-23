@@ -1,4 +1,12 @@
+/**
+ * Sorting module.
+ */
 export default class Sorter{
+    /**
+     * Sort items in place by multi-fields order.
+     * @param items
+     * @param fieldsOrder
+     */
     sortBy(items, fieldsOrder){
         const normFieldsOrder = this._normalizeFieldsOrder(fieldsOrder)
         if (!normFieldsOrder.size) return

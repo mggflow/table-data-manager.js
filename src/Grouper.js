@@ -1,3 +1,6 @@
+/**
+ * Grouping module.
+ */
 export default class Grouper {
     defDelimiter
     defEmptyPlug
@@ -5,7 +8,7 @@ export default class Grouper {
     fields = {}
     groupingKey = []
 
-    constructor(defDelimiter= '~/~', defEmptyPlug= '.?~`') {
+    constructor(defDelimiter = '~/~', defEmptyPlug = '.?~`') {
         this.defDelimiter = defDelimiter
         this.defEmptyPlug = defEmptyPlug
 
@@ -13,6 +16,12 @@ export default class Grouper {
         this.getGroupingKeyStr = this.getGroupingKeyStr.bind(this)
     }
 
+    /**
+     * Group items by grouping key.
+     * @param groupingKey
+     * @param items
+     * @returns {{}}
+     */
     group(groupingKey, items) {
         this.groupingKey = groupingKey
 
@@ -34,6 +43,11 @@ export default class Grouper {
         return grouped
     }
 
+    /**
+     * Set field transformer.
+     * @param fieldKey
+     * @param transformer
+     */
     setField(fieldKey, transformer = null) {
         if (transformer === null) {
             this.fields[fieldKey] = (item) => this._getDefValue(item, fieldKey)
@@ -42,8 +56,29 @@ export default class Grouper {
         }
     }
 
+    /**
+     * Create grouping key string for item.
+     * @param item
+     * @returns {string}
+     */
     getGroupingKeyStr(item) {
         return [...this.groupingKey].map((fieldKey) => this._getValue(item, fieldKey)).join(this.defDelimiter)
+    }
+
+    /**
+     * Get grouping delimiter.
+     * @returns {*}
+     */
+    getDelimiter() {
+        return this.defDelimiter
+    }
+
+    /**
+     * Get transforming empty plug.
+     * @returns {*}
+     */
+    getEmptyPlug() {
+        return this.defEmptyPlug
     }
 
     _getValue(item, fieldKey) {
