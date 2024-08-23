@@ -1,6 +1,6 @@
 {
   "name": "@mggflow/table-data-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JS library that provides and simplifies data handling for table view.",
   "main": "src/index.js",
   "type": "module",
