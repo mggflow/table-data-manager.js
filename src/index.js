@@ -5,14 +5,19 @@ import Sorter from "./Sorter.js";
 
 /**
  * Make TableDataManager with initialized parts.
- * @param groupingDefDelimiter
- * @param groupingDefEmptyPlug
- * @param viewingDefDelimiter
- * @param viewingDefEmptyPlug
+ * @param grouperSettings
+ * @param viewerSettings
+ * @param grouperSingleValueConverter
+ * @param viewerSingleValueConverter
  * @returns {TableDataManager}
  */
-export default function makeTableDataManager(groupingDefDelimiter = '~/~', groupingDefEmptyPlug = '.?~`',
-                                             viewingDefDelimiter = '; ', viewingDefEmptyPlug = '-') {
-    return new TableDataManager(new Grouper(groupingDefDelimiter, groupingDefEmptyPlug),
-        new Viewer(viewingDefDelimiter, viewingDefEmptyPlug), new Sorter())
+export default function makeTableDataManager(
+    grouperSettings = null, viewerSettings = null,
+    grouperSingleValueConverter = null, viewerSingleValueConverter = null
+) {
+    return new TableDataManager(
+        new Grouper(grouperSettings, grouperSingleValueConverter),
+        new Viewer(viewerSettings, viewerSingleValueConverter),
+        new Sorter()
+    )
 }

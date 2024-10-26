@@ -1,16 +1,19 @@
+import GrouperSettings from "./GrouperSettings.js";
+import SingleValueConverter from "./SingleValueConverter.js";
+
 /**
  * Grouping module.
  */
 export default class Grouper {
-    defDelimiter
-    defEmptyPlug
+    settings
+    singleValueConverter
 
     fields = {}
     groupingKey = []
 
-    constructor(defDelimiter = '~/~', defEmptyPlug = '.?~`') {
-        this.defDelimiter = defDelimiter
-        this.defEmptyPlug = defEmptyPlug
+    constructor(settings = null, singleValueConverter = null) {
+        this.settings = settings ?? new GrouperSettings()
+        this.singleValueConverter = singleValueConverter ?? new SingleValueConverter()
 
         this._getDefValue = this._getDefValue.bind(this)
         this.getGroupingKeyStr = this.getGroupingKeyStr.bind(this)
@@ -62,7 +65,7 @@ export default class Grouper {
      * @returns {string}
      */
     getGroupingKeyStr(item) {
-        return [...this.groupingKey].map((fieldKey) => this._getValue(item, fieldKey)).join(this.defDelimiter)
+        return [...this.groupingKey].map((fieldKey) => this._singleConverted(item, fieldKey)).join(this.settings.delimiter)
     }
 
     /**
@@ -70,7 +73,7 @@ export default class Grouper {
      * @returns {*}
      */
     getDelimiter() {
-        return this.defDelimiter
+        return this.settings.delimiter
     }
 
     /**
@@ -78,14 +81,20 @@ export default class Grouper {
      * @returns {*}
      */
     getEmptyPlug() {
-        return this.defEmptyPlug
+        return this.settings.emptyPlug
     }
 
     _getValue(item, fieldKey) {
         return this.fields[fieldKey](item)
     }
 
+    _singleConverted(item, fieldKey) {
+        let val = this._getDefValue(item, fieldKey)
+
+        return this.singleValueConverter.convert(val, fieldKey, item)
+    }
+
     _getDefValue(obj, fieldKey) {
-        return obj[fieldKey] ?? this.defEmptyPlug
+        return obj[fieldKey] ?? this.settings.emptyPlug
     }
 }
